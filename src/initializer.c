@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maghumya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narek <narek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 19:15:26 by maghumya          #+#    #+#             */
-/*   Updated: 2026/02/03 02:26:21 by maghumya         ###   ########.fr       */
+/*   Updated: 2026/05/01 15:00:42 by narek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ bool	initialize_scene(char *filename, t_scene *scene)
 	scene->spheres = NULL;
 	scene->planes = NULL;
 	scene->cylinders = NULL;
+	scene->cones = NULL;
 	if (!read_file(filename, scene))
 		return (false);
 	return (true);
@@ -32,6 +33,7 @@ bool	clean_scene(t_scene *scene)
 	ft_lstclear(&scene->spheres, free);
 	ft_lstclear(&scene->planes, free);
 	ft_lstclear(&scene->cylinders, free);
+	ft_lstclear(&scene->cones, free);
 	if (scene->camera)
 		free(scene->camera);
 	return (true);

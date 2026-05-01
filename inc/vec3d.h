@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maghumya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narek <narek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/28 19:08:23 by maghumya          #+#    #+#             */
-/*   Updated: 2026/02/05 22:32:34 by maghumya         ###   ########.fr       */
+/*   Updated: 2026/05/01 14:58:51 by narek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,15 @@ typedef struct s_cylinder
 	double	half_height;
 	t_rgb	color;
 }			t_cylinder;
+
+typedef struct s_cone
+{
+	t_vec3 apex;
+	t_vec3 axis;
+	double radius;
+	double height;
+	t_rgb color;
+}	t_cone;
 
 typedef struct s_light
 {

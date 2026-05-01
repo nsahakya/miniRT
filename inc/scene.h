@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maghumya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narek <narek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 15:30:00 by maghumya          #+#    #+#             */
-/*   Updated: 2026/02/03 02:27:58 by maghumya         ###   ########.fr       */
+/*   Updated: 2026/05/01 14:59:31 by narek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_scene
 	t_list					*spheres;
 	t_list					*planes;
 	t_list					*cylinders;
+	t_list					*cones;
 	t_viewport				viewport;
 }							t_scene;
 

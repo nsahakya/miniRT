@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maghumya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narek <narek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 15:30:00 by maghumya          #+#    #+#             */
-/*   Updated: 2026/02/03 02:24:35 by maghumya         ###   ########.fr       */
+/*   Updated: 2026/05/01 15:01:27 by narek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ bool			parse_light(char **tokens, t_scene *scene);
 bool			parse_sphere(char **tokens, t_scene *scene);
 bool			parse_plane(char **tokens, t_scene *scene);
 bool			parse_cylinder(char **tokens, t_scene *scene);
+bool			parse_cone(char **tokens, t_scene *scene);
 bool			parse_vec3(char *str, t_vec3 *vec);
 bool			parse_rgb(char *str, t_rgb *color);
 
