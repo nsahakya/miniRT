@@ -6,7 +6,7 @@
 /*   By: narek <narek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 18:06:52 by maghumya          #+#    #+#             */
-/*   Updated: 2026/05/01 15:19:46 by narek            ###   ########.fr       */
+/*   Updated: 2026/05/04 12:33:42 by narek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,25 +108,23 @@ bool	parse_cylinder(char **tokens, t_scene *scene)
 	return (true);
 }
 
-static bool parse_cone_args(char **tokens, t_cone* cone)
+static bool	parse_cone_args(char **tokens, t_cone *cone)
 {
 	if (!parse_vec3(tokens[1], &cone->apex))
 		return (false);
 	if (!parse_vec3(tokens[2], &cone->axis))
 		return (false);
 	if (!check_range_vec3(cone->axis, -1.0, 1.0))
-    	return (put_error("Cone axis vector must be in range [-1,1]"));
+		return (put_error("Cone axis vector must be in range [-1,1]"));
 	if (vec3_length(cone->axis) < 0.0001)
 		return (put_error("Direction cannot be zero"));
 	cone->axis = vec3_normalize(cone->axis);
-
 	if (!check_double(tokens[3]) || !check_double(tokens[4]))
 		return (put_error("Invalid cone dimensions"));
 	cone->radius = ft_atod(tokens[3]) / 2.0;
 	cone->height = ft_atod(tokens[4]);
 	if (cone->radius <= 0.0 || cone->height <= 0.0)
 		return (put_error("Cone diameter and height must be positive"));
-	
 	if (!parse_rgb(tokens[5], &cone->color))
 		return (false);
 	return (true);
@@ -141,15 +139,13 @@ bool	parse_cone(char **tokens, t_scene *scene)
 	if (!cone)
 		return (put_error("Memory allocation failed"));
 	if (!check_split_length(tokens, 6))
-		return (free(cone), put_error("Invalid cone defention"));
+		return (free(cone), put_error("Invalid cone definition"));
 	if (!parse_cone_args(tokens, cone))
 		return (free(cone), false);
-
 	node = ft_lstnew(cone);
 	if (!node)
 		return (free(cone), put_error("Memory allocation failed"));
 	ft_lstadd_back(&scene->cones, node);
 	return (true);
 }
-
 

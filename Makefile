@@ -22,6 +22,7 @@ SRCS =	main.c \
 		src/intersections/sphere/ray_sphere.c \
 		src/intersections/plane/ray_plane.c \
 		src/intersections/cylinder/ray_cylinder.c \
+		src/intersections/cone/ray_cone.c \
 		src/intersections/cylinder/cylinder_utils1.c \
 		src/intersections/cylinder/cylinder_utils2.c \
 		src/intersections/closest_intersection/closest_intersection.c \

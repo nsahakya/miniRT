@@ -6,7 +6,7 @@
 /*   By: narek <narek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 15:19:45 by maghumya          #+#    #+#             */
-/*   Updated: 2026/05/01 15:02:26 by narek            ###   ########.fr       */
+/*   Updated: 2026/05/04 12:32:23 by narek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_parse_fn	get_parser(char *identifier)
 		return (parse_plane);
 	else if (ft_strcmp(identifier, "cy") == 0)
 		return (parse_cylinder);
-	else if (ft_strcmp(identifier, "co") == 0)
+	else if (ft_strcmp(identifier, "cn") == 0)
 		return (parse_cone);
 	return (NULL);
 }

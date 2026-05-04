@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   closest_intersection.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maghumya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narek <narek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 18:19:48 by nsahakya          #+#    #+#             */
-/*   Updated: 2026/02/18 22:27:21 by maghumya         ###   ########.fr       */
+/*   Updated: 2026/05/04 12:44:06 by narek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,30 @@ static void	check_cylinder_intersections(t_ray ray, t_list *cylinders,
 	}
 }
 
+static void	check_cone_intersections(t_ray ray, t_list *cones,
+		double *best_t, t_hit_record *rec)
+{
+	t_list	*node;
+	t_cone	*co;
+	double	t;
+
+	node = cones;
+	while (node)
+	{
+		co = (t_cone *)node->content;
+		if (intersect_cone(ray, co, &t) && t < *best_t)
+		{
+			*best_t = t;
+			rec->hit = true;
+			rec->t = t;
+			rec->point = vec3_add(ray.origin, vec3_scale(ray.direction, t));
+			rec->normal = get_cone_normal(co, rec->point, ray.direction);
+			rec->color = co->color;
+		}
+		node = node->next;
+	}
+}
+
 bool	find_closest_intersection(t_ray ray, t_scene *scene, t_hit_record *rec)
 {
 	double	best_t;
@@ -95,5 +119,6 @@ bool	find_closest_intersection(t_ray ray, t_scene *scene, t_hit_record *rec)
 	check_sphere_intersections(ray, scene->spheres, &best_t, rec);
 	check_plane_intersections(ray, scene->planes, &best_t, rec);
 	check_cylinder_intersections(ray, scene->cylinders, &best_t, rec);
+	check_cone_intersections(ray, scene->cones, &best_t, rec);
 	return (rec->hit);
 }

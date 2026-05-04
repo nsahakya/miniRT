@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maghumya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narek <narek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 21:42:48 by maghumya          #+#    #+#             */
-/*   Updated: 2026/02/05 22:11:28 by maghumya         ###   ########.fr       */
+/*   Updated: 2026/05/04 12:44:06 by narek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,24 @@ t_vec3	get_cylinder_normal(t_cylinder *cylinder, t_vec3 point, t_vec3 ray_dir)
 	normal = vec3_subtract(center_to_point, vec3_scale(cylinder->axis,
 				proj_length));
 	return (face_forward(vec3_normalize(normal), ray_dir));
+}
+
+t_vec3	get_cone_normal(t_cone *cone, t_vec3 point, t_vec3 ray_dir)
+{
+	t_vec3	x;
+	double	m;
+	double	k;
+	double	k2;
+	t_vec3	n;
+
+	if (!cone)
+		return ((t_vec3){0.0, 0.0, 0.0});
+	x = vec3_subtract(point, cone->apex);
+	m = vec3_dot(x, cone->axis);
+	if (fabs(m - cone->height) < EPSILON)
+		return (face_forward(vec3_normalize(cone->axis), ray_dir));
+	k = cone->radius / cone->height;
+	k2 = k * k;
+	n = vec3_subtract(x, vec3_scale(cone->axis, (1.0 + k2) * m));
+	return (face_forward(vec3_normalize(n), ray_dir));
 }

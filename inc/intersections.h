@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsahakya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: narek <narek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/04 18:35:58 by nsahakya          #+#    #+#             */
-/*   Updated: 2026/03/04 18:36:00 by nsahakya         ###   ########.fr       */
+/*   Updated: 2026/05/04 12:41:13 by narek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,25 @@ typedef struct s_cy_body
 	double	t1;
 }			t_cy_body;
 
+typedef struct s_cone_side
+{
+	t_vec3	w;
+    double	k;
+    double	k2;
+    double	dv;
+    double	wv;
+    t_vec3	d_perp;
+    t_vec3	w_perp;
+    double	a, b, c;
+    double	disc, sqrt_disc;
+    double	t0, t1;
+    double	m;
+}	t_cone_side;
+
 bool		intersect_sphere(t_ray ray, t_sphere *sphere, double *t);
 bool		intersect_plane(t_ray ray, t_plane *plane, double *t);
 bool		intersect_cylinder(t_ray ray, t_cylinder *cylinder, double *t);
+bool		intersect_cone(t_ray ray, t_cone *cone, double *t);
 
 bool		find_closest_intersection(t_ray ray, t_scene *scene,
 				t_hit_record *rec);
@@ -93,5 +109,6 @@ t_vec3		get_plane_normal(t_plane *plane, t_vec3 point, t_vec3 ray_dir);
 t_vec3		get_sphere_normal(t_sphere *sphere, t_vec3 point, t_vec3 ray_dir);
 t_vec3		get_cylinder_normal(t_cylinder *cylinder, t_vec3 point,
 				t_vec3 ray_dir);
+t_vec3		get_cone_normal(t_cone *cone, t_vec3 point, t_vec3 ray_dir);
 
 #endif
