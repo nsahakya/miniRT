@@ -148,4 +148,35 @@ bool	parse_cone(char **tokens, t_scene *scene)
 	ft_lstadd_back(&scene->cones, node);
 	return (true);
 }
+static bool	parse_box_args(char **tokens, t_box *box)
+{
+	if (!parse_vec3(tokens[1], &box->center))
+		return (false);
+	if (!parse_vec3(tokens[2], &box->size))
+		return (false);
+	if (box->size.x <= 0.0 || box->size.y <= 0.0 || box->size.z <= 0.0)
+		return (put_error("Box dimensions must be positive"));
+	if (!parse_rgb(tokens[3], &box->color))
+		return (false);
+	return (true);
+}
+
+bool	parse_box(char **tokens, t_scene *scene)
+{
+	t_box	*box;
+	t_list	*node;
+
+	box = ft_calloc(1, sizeof(t_box));
+	if (!box)
+		return (put_error("Memory allocation failed"));
+	if (!check_split_length(tokens, 4))
+		return (free(box), put_error("Invalid box definition"));
+	if (!parse_box_args(tokens, box))
+		return (free(box), false);
+	node = ft_lstnew(box);
+	if (!node)
+		return (free(box), put_error("Memory allocation failed"));
+	ft_lstadd_back(&scene->boxes, node);
+	return (true);
+}
 

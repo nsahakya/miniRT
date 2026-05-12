@@ -95,4 +95,3 @@ bool	intersect_disk(t_ray ray, t_disk disk, double *t_hit)
 	return (true);
 }
 
-// ...existing code...

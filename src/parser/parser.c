@@ -28,6 +28,9 @@ static t_parse_fn	get_parser(char *identifier)
 		return (parse_cylinder);
 	else if (ft_strcmp(identifier, "cn") == 0)
 		return (parse_cone);
+	else if (ft_strcmp(identifier, "bx") == 0)
+		return (parse_box);
+	
 	return (NULL);
 }
 

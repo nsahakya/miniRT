@@ -29,6 +29,7 @@ bool			parse_light(char **tokens, t_scene *scene);
 bool			parse_sphere(char **tokens, t_scene *scene);
 bool			parse_plane(char **tokens, t_scene *scene);
 bool			parse_cylinder(char **tokens, t_scene *scene);
+bool			parse_box(char **tokens, t_scene *scene);
 bool			parse_cone(char **tokens, t_scene *scene);
 bool			parse_vec3(char *str, t_vec3 *vec);
 bool			parse_rgb(char *str, t_rgb *color);

@@ -1,6 +1,11 @@
 CC=cc
 CFLAGS= -Wall -Wextra -Werror
-MLX_FLAGS= -lXext -lX11 -lm -lz
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+	MLX_FLAGS= -framework OpenGL -framework AppKit -lm -lz
+else
+	MLX_FLAGS= -lXext -lX11 -lm -lz
+endif
 DEBUG_FLAGS=-g3 -fsanitize=address,undefined,leak -D DEBUG
 
 SRCS =	main.c \
@@ -27,7 +32,8 @@ SRCS =	main.c \
 		src/intersections/cylinder/cylinder_utils2.c \
 		src/intersections/closest_intersection/closest_intersection.c \
 		src/intersections/normals.c \
-		src/lightning/phong.c \
+		src/intersections/box/ray_box.c \
+		src/lightning/phong.c 
 
 # Object files
 OBJDIR=obj

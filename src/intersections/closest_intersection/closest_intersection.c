@@ -107,7 +107,29 @@ static void	check_cone_intersections(t_ray ray, t_list *cones,
 		node = node->next;
 	}
 }
+static void	check_box_intersections(t_ray ray, t_list *boxes,
+		double *best_t, t_hit_record *rec)
+{
+	t_list	*node;
+	t_box	*box;
+	double	t;
 
+	node = boxes;
+	while (node)
+	{
+		box = (t_box *)node->content;
+		if (intersect_box(ray, box, &t) && t < *best_t)
+		{
+			*best_t = t;
+			rec->hit = true;
+			rec->t = t;
+			rec->point = vec3_add(ray.origin, vec3_scale(ray.direction, t));
+			rec->normal = get_box_normal(box, rec->point, ray.direction);
+			rec->color = box->color;
+		}
+		node = node->next;
+	}
+}
 bool	find_closest_intersection(t_ray ray, t_scene *scene, t_hit_record *rec)
 {
 	double	best_t;
@@ -120,5 +142,6 @@ bool	find_closest_intersection(t_ray ray, t_scene *scene, t_hit_record *rec)
 	check_plane_intersections(ray, scene->planes, &best_t, rec);
 	check_cylinder_intersections(ray, scene->cylinders, &best_t, rec);
 	check_cone_intersections(ray, scene->cones, &best_t, rec);
+	check_box_intersections(ray, scene->boxes, &best_t, rec);
 	return (rec->hit);
 }

@@ -40,6 +40,7 @@ typedef struct s_scene
 	t_list					*planes;
 	t_list					*cylinders;
 	t_list					*cones;
+	t_list 					*boxes;
 	t_viewport				viewport;
 }							t_scene;
 
@@ -48,6 +49,14 @@ typedef struct s_data
 	t_mlx					mlx;
 	t_scene					scene;
 }							t_data;
+
+typedef struct s_box
+{
+	t_vec3 center;
+	t_vec3 size;
+	t_rgb color;
+} t_box;
+
 
 bool						initialize_scene(char *filename, t_scene *scene);
 bool						clean_scene(t_scene *scene);

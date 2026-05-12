@@ -38,11 +38,6 @@ void	destroy_window(t_mlx *mlx)
 		mlx_destroy_image(mlx->mlx, mlx->img);
 	if (mlx->win)
 		mlx_destroy_window(mlx->mlx, mlx->win);
-	if (mlx->mlx)
-	{
-		mlx_destroy_display(mlx->mlx);
-		free(mlx->mlx);
-	}
 }
 
 void	mlx_put_pixel(t_mlx *mlx, int x, int y, int color)

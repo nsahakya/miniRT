@@ -70,3 +70,32 @@ t_vec3	get_cone_normal(t_cone *cone, t_vec3 point, t_vec3 ray_dir)
 	n = vec3_subtract(x, vec3_scale(cone->axis, (1.0 + k2) * m));
 	return (face_forward(vec3_normalize(n), ray_dir));
 }
+t_vec3	get_box_normal(t_box *box, t_vec3 point, t_vec3 ray_dir)
+{
+	t_vec3	min_bound;
+	t_vec3	max_bound;
+	t_vec3	normal;
+	double	eps;
+
+	eps = 0.0001;
+	min_bound.x = box->center.x - box->size.x / 2.0;
+	min_bound.y = box->center.y - box->size.y / 2.0;
+	min_bound.z = box->center.z - box->size.z / 2.0;
+	max_bound.x = box->center.x + box->size.x / 2.0;
+	max_bound.y = box->center.y + box->size.y / 2.0;
+	max_bound.z = box->center.z + box->size.z / 2.0;
+	normal = (t_vec3){0, 0, 0};
+	if (fabs(point.x - min_bound.x) < eps)
+		normal = (t_vec3){-1, 0, 0};
+	else if (fabs(point.x - max_bound.x) < eps)
+		normal = (t_vec3){1, 0, 0};
+	else if (fabs(point.y - min_bound.y) < eps)
+		normal = (t_vec3){0, -1, 0};
+	else if (fabs(point.y - max_bound.y) < eps)
+		normal = (t_vec3){0, 1, 0};
+	else if (fabs(point.z - min_bound.z) < eps)
+		normal = (t_vec3){0, 0, -1};
+	else if (fabs(point.z - max_bound.z) < eps)
+		normal = (t_vec3){0, 0, 1};
+	return (face_forward(normal, ray_dir));
+}

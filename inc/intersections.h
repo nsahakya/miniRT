@@ -89,6 +89,7 @@ bool		intersect_sphere(t_ray ray, t_sphere *sphere, double *t);
 bool		intersect_plane(t_ray ray, t_plane *plane, double *t);
 bool		intersect_cylinder(t_ray ray, t_cylinder *cylinder, double *t);
 bool		intersect_cone(t_ray ray, t_cone *cone, double *t);
+bool		intersect_box(t_ray ray, t_box *box, double *t);
 
 bool		find_closest_intersection(t_ray ray, t_scene *scene,
 				t_hit_record *rec);
@@ -110,5 +111,6 @@ t_vec3		get_sphere_normal(t_sphere *sphere, t_vec3 point, t_vec3 ray_dir);
 t_vec3		get_cylinder_normal(t_cylinder *cylinder, t_vec3 point,
 				t_vec3 ray_dir);
 t_vec3		get_cone_normal(t_cone *cone, t_vec3 point, t_vec3 ray_dir);
+t_vec3		get_box_normal(t_box *box, t_vec3 point, t_vec3 ray_dir);
 
 #endif
