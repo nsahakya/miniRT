@@ -41,6 +41,9 @@ typedef struct s_scene
 	t_list					*cylinders;
 	t_list					*cones;
 	t_list 					*boxes;
+	t_list					*triangles;
+	t_list 					*discs;
+	t_list					*quads;
 	t_viewport				viewport;
 }							t_scene;
 
@@ -57,6 +60,30 @@ typedef struct s_box
 	t_rgb color;
 } t_box;
 
+typedef struct s_triangle
+{
+	t_vec3	p1;
+	t_vec3	p2;
+	t_vec3	p3;
+	t_rgb	color;
+}	t_triangle;
+
+typedef struct s_disc
+{
+	t_vec3 center;
+	t_vec3 normal;
+	double radius;
+	t_rgb color;
+} t_disc;
+
+typedef struct s_quad
+{
+	t_vec3	p1;
+	t_vec3	p2;
+	t_vec3	p3;
+	t_vec3	p4;
+	t_rgb	color;
+}	t_quad;
 
 bool						initialize_scene(char *filename, t_scene *scene);
 bool						clean_scene(t_scene *scene);

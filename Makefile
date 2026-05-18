@@ -33,6 +33,9 @@ SRCS =	main.c \
 		src/intersections/closest_intersection/closest_intersection.c \
 		src/intersections/normals.c \
 		src/intersections/box/ray_box.c \
+		src/intersections/disc/ray_disc.c \
+		src/intersections/triangle/ray_triangle.c \
+		src/intersections/quad/ray_quad.c \
 		src/lightning/phong.c 
 
 # Object files

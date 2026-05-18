@@ -33,7 +33,9 @@ bool			parse_box(char **tokens, t_scene *scene);
 bool			parse_cone(char **tokens, t_scene *scene);
 bool			parse_vec3(char *str, t_vec3 *vec);
 bool			parse_rgb(char *str, t_rgb *color);
-
+bool			parse_triangle(char **tokens, t_scene *scene);
+bool 			parse_disc(char **tokens, t_scene *scene);
+bool			parse_quad(char **tokens, t_scene *scene);
 /* Validation functions */
 bool			check_file_extension(char *filename);
 bool			check_double(const char *str);

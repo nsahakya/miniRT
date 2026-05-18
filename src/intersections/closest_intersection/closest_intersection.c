@@ -130,6 +130,80 @@ static void	check_box_intersections(t_ray ray, t_list *boxes,
 		node = node->next;
 	}
 }
+
+static void	check_triangle_intersections(t_ray ray, t_list *triangles,
+		double *best_t, t_hit_record *rec)
+{
+	t_list		*node;
+	t_triangle	*triangle;
+	double		t;
+
+	node = triangles;
+	while (node)
+	{
+		triangle = (t_triangle *)node->content;
+		if (intersect_triangle(ray, triangle, &t) && t < *best_t)
+		{
+			
+			*best_t = t;
+			rec->hit = true;
+			rec->t = t;
+			rec->point = vec3_add(ray.origin, vec3_scale(ray.direction, t));
+			rec->normal = get_triangle_normal(triangle, rec->point,
+					ray.direction);
+			rec->color = triangle->color;
+		}
+		node = node->next;
+	}
+}
+
+static void	check_disc_intersections(t_ray ray, t_list *discs,
+		double *best_t, t_hit_record *rec)
+{
+	t_list	*node;
+	t_disc	*disc;
+	double	t;
+
+	node = discs;
+	while (node)
+	{
+		disc = (t_disc *)node->content;
+		if (intersect_disc(ray, disc, &t) && t < *best_t)
+		{
+			*best_t = t;
+			rec->hit = true;
+			rec->t = t;
+			rec->point = vec3_add(ray.origin, vec3_scale(ray.direction, t));
+			rec->normal = get_disc_normal(disc, rec->point, ray.direction);
+			rec->color = disc->color;
+		}
+		node = node->next;
+	}
+}
+static void	check_quad_intersections(t_ray ray, t_list *quads,
+		double *best_t, t_hit_record *rec)
+{
+	t_list	*node;
+	t_quad	*quad;
+	double	t;
+
+	node = quads;
+	while (node)
+	{
+		quad = (t_quad *)node->content;
+		if (intersect_quad(ray, quad, &t) && t < *best_t)
+		{
+			*best_t = t;
+			rec->hit = true;
+			rec->t = t;
+			rec->point = vec3_add(ray.origin, vec3_scale(ray.direction, t));
+			rec->normal = get_quad_normal(quad, rec->point, ray.direction);
+			rec->color = quad->color;
+		}
+		node = node->next;
+	}
+}
+
 bool	find_closest_intersection(t_ray ray, t_scene *scene, t_hit_record *rec)
 {
 	double	best_t;
@@ -143,5 +217,8 @@ bool	find_closest_intersection(t_ray ray, t_scene *scene, t_hit_record *rec)
 	check_cylinder_intersections(ray, scene->cylinders, &best_t, rec);
 	check_cone_intersections(ray, scene->cones, &best_t, rec);
 	check_box_intersections(ray, scene->boxes, &best_t, rec);
+	check_triangle_intersections(ray, scene->triangles, &best_t, rec);
+	check_disc_intersections(ray, scene->discs, &best_t, rec);
+	check_quad_intersections(ray, scene->quads, &best_t, rec);
 	return (rec->hit);
 }

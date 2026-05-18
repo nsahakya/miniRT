@@ -99,3 +99,36 @@ t_vec3	get_box_normal(t_box *box, t_vec3 point, t_vec3 ray_dir)
 		normal = (t_vec3){0, 0, 1};
 	return (face_forward(normal, ray_dir));
 }
+
+t_vec3	get_triangle_normal(t_triangle *triangle, t_vec3 point,
+		t_vec3 ray_dir)
+{
+	t_vec3	edge1;
+	t_vec3	edge2;
+	t_vec3	normal;
+
+	(void)point;
+	edge1 = vec3_add(triangle->p2, vec3_scale(triangle->p1, -1));
+	edge2 = vec3_add(triangle->p3, vec3_scale(triangle->p1, -1));
+	normal = vec3_normalize(vec3_cross(edge1, edge2));
+	return (face_forward(normal, ray_dir));
+}
+
+t_vec3	get_disc_normal(t_disc *disc, t_vec3 point, t_vec3 ray_dir)
+{
+	(void)point;
+	return (face_forward(vec3_normalize(disc->normal), ray_dir));
+}
+
+t_vec3	get_quad_normal(t_quad *quad, t_vec3 point, t_vec3 ray_dir)
+{
+	t_vec3	edge1;
+	t_vec3	edge2;
+	t_vec3	normal;
+
+	(void)point;
+	edge1 = vec3_add(quad->p2, vec3_scale(quad->p1, -1));
+	edge2 = vec3_add(quad->p3, vec3_scale(quad->p1, -1));
+	normal = vec3_normalize(vec3_cross(edge1, edge2));
+	return (face_forward(normal, ray_dir));
+} 

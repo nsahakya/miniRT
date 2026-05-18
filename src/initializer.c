@@ -23,6 +23,9 @@ bool	initialize_scene(char *filename, t_scene *scene)
 	scene->cylinders = NULL;
 	scene->cones = NULL;
 	scene->boxes = NULL;
+	scene->discs = NULL;
+	scene->triangles = NULL;
+	scene->quads = NULL;
 	if (!read_file(filename, scene))
 		return (false);
 	return (true);
@@ -36,6 +39,9 @@ bool	clean_scene(t_scene *scene)
 	ft_lstclear(&scene->cylinders, free);
 	ft_lstclear(&scene->cones, free);
 	ft_lstclear(&scene->boxes, free);
+	ft_lstclear(&scene->triangles, free);
+	ft_lstclear(&scene->discs, free);
+	ft_lstclear(&scene->quads, free);
 	if (scene->camera)
 		free(scene->camera);
 	return (true);

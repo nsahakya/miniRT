@@ -30,8 +30,14 @@ static t_parse_fn	get_parser(char *identifier)
 		return (parse_cone);
 	else if (ft_strcmp(identifier, "bx") == 0)
 		return (parse_box);
-	
+	else if (ft_strcmp(identifier, "tr") == 0)
+		return (parse_triangle);
+	else if (ft_strcmp(identifier, "di") == 0)
+		return (parse_disc);	
+	else if (ft_strcmp(identifier, "qd") == 0)
+		return (parse_quad);
 	return (NULL);
+	
 }
 
 static char	*check_trim(char *line)

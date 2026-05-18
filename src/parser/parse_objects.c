@@ -180,3 +180,137 @@ bool	parse_box(char **tokens, t_scene *scene)
 	return (true);
 }
 
+static bool	parse_triangle_args(char **tokens, t_triangle *triangle)
+{
+	t_vec3	edge1;
+	t_vec3	edge2;
+	t_vec3	normal;
+
+	if (!parse_vec3(tokens[1], &triangle->p1))
+		return (false);
+	if (!parse_vec3(tokens[2], &triangle->p2))
+		return (false);
+	if (!parse_vec3(tokens[3], &triangle->p3))
+		return (false);
+	edge1 = vec3_add(triangle->p2, vec3_scale(triangle->p1, -1));
+	edge2 = vec3_add(triangle->p3, vec3_scale(triangle->p1, -1));
+	normal = vec3_cross(edge1, edge2);
+	if (vec3_length(normal) < 0.0001)
+		return (put_error("Triangle points must not be collinear"));
+	if (!parse_rgb(tokens[4], &triangle->color))
+		return (false);
+	return (true);
+}
+
+bool	parse_triangle(char **tokens, t_scene *scene)
+{
+	t_triangle	*triangle;
+	t_list		*node;
+
+	triangle = ft_calloc(1, sizeof(t_triangle));
+	if (!triangle)
+		return (put_error("Memory allocation failed"));
+	if (!check_split_length(tokens, 5))
+		return (free(triangle), put_error("Invalid triangle definition"));
+	if (!parse_triangle_args(tokens, triangle))
+		return (free(triangle), false);
+	node = ft_lstnew(triangle);
+	if (!node)
+		return (free(triangle), put_error("Memory allocation failed"));
+	ft_lstadd_back(&scene->triangles, node);
+	return (true);
+}
+
+static bool	parse_disc_args(char **tokens, t_disc *disc)
+{
+	if (!parse_vec3(tokens[1], &disc->center))
+		return (false);
+	if (!parse_vec3(tokens[2], &disc->normal))
+		return (false);
+	if (!check_range_vec3(disc->normal, -1.0, 1.0))
+		return (put_error("Disc normal vector must be in range [-1,1]"));
+	if (vec3_length(disc->normal) < 0.0001)
+		return (put_error("Direction cannot be zero"));
+	disc->normal = vec3_normalize(disc->normal);
+	if (!check_double(tokens[3]))
+		return (put_error("Invalid disc diameter"));
+	disc->radius = ft_atod(tokens[3]) / 2.0;
+	if (disc->radius <= 0.0)
+		return (put_error("Disc diameter must be positive"));
+	if (!parse_rgb(tokens[4], &disc->color))
+		return (false);
+	return (true);
+}
+
+bool	parse_disc(char **tokens, t_scene *scene)
+{
+	t_disc	*disc;
+	t_list	*node;
+
+	disc = ft_calloc(1, sizeof(t_disc));
+	if (!disc)
+		return (put_error("Memory allocation failed"));
+	if (!check_split_length(tokens, 5))
+		return (free(disc), put_error("Invalid disc definition"));
+	if (!parse_disc_args(tokens, disc))
+		return (free(disc), false);
+	node = ft_lstnew(disc);
+	if (!node)
+		return (free(disc), put_error("Memory allocation failed"));
+	ft_lstadd_back(&scene->discs, node);
+	return (true);
+}
+static bool	check_quad_points(t_quad *quad)
+{
+	t_vec3	edge1;
+	t_vec3	edge2;
+	t_vec3	normal;
+
+	edge1 = vec3_add(quad->p2, vec3_scale(quad->p1, -1));
+	edge2 = vec3_add(quad->p3, vec3_scale(quad->p1, -1));
+	normal = vec3_cross(edge1, edge2);
+	if (vec3_length(normal) < 0.0001)
+		return (put_error("Quad first triangle points are invalid"));
+	edge1 = vec3_add(quad->p3, vec3_scale(quad->p1, -1));
+	edge2 = vec3_add(quad->p4, vec3_scale(quad->p1, -1));
+	normal = vec3_cross(edge1, edge2);
+	if (vec3_length(normal) < 0.0001)
+		return (put_error("Quad second triangle points are invalid"));
+	return (true);
+}
+
+static bool	parse_quad_args(char **tokens, t_quad *quad)
+{
+	if (!parse_vec3(tokens[1], &quad->p1))
+		return (false);
+	if (!parse_vec3(tokens[2], &quad->p2))
+		return (false);
+	if (!parse_vec3(tokens[3], &quad->p3))
+		return (false);
+	if (!parse_vec3(tokens[4], &quad->p4))
+		return (false);
+	if (!check_quad_points(quad))
+		return (false);
+	if (!parse_rgb(tokens[5], &quad->color))
+		return (false);
+	return (true);
+}
+
+bool	parse_quad(char **tokens, t_scene *scene)
+{
+	t_quad	*quad;
+	t_list	*node;
+
+	quad = ft_calloc(1, sizeof(t_quad));
+	if (!quad)
+		return (put_error("Memory allocation failed"));
+	if (!check_split_length(tokens, 6))
+		return (free(quad), put_error("Invalid quad definition"));
+	if (!parse_quad_args(tokens, quad))
+		return (free(quad), false);
+	node = ft_lstnew(quad);
+	if (!node)
+		return (free(quad), put_error("Memory allocation failed"));
+	ft_lstadd_back(&scene->quads, node);
+	return (true);
+}

@@ -90,6 +90,8 @@ bool		intersect_plane(t_ray ray, t_plane *plane, double *t);
 bool		intersect_cylinder(t_ray ray, t_cylinder *cylinder, double *t);
 bool		intersect_cone(t_ray ray, t_cone *cone, double *t);
 bool		intersect_box(t_ray ray, t_box *box, double *t);
+bool		intersect_disc(t_ray ray, t_disc *disc, double *t);
+bool		intersect_quad(t_ray ray, t_quad *quad, double *t);
 
 bool		find_closest_intersection(t_ray ray, t_scene *scene,
 				t_hit_record *rec);
@@ -104,6 +106,7 @@ bool		cylinder_body_solve(t_cy_body *b);
 bool		cylinder_body_hit(t_ray ray, t_cylinder *cylinder, double *t_hit);
 bool		cylinder_disk_hit(t_ray ray, t_cylinder *cylinder, double *t_hit);
 bool		intersect_disk(t_ray ray, t_disk disk, double *t_hit);
+bool		intersect_triangle(t_ray ray, t_triangle *triangle, double *t);
 
 /* normals */
 t_vec3		get_plane_normal(t_plane *plane, t_vec3 point, t_vec3 ray_dir);
@@ -112,5 +115,9 @@ t_vec3		get_cylinder_normal(t_cylinder *cylinder, t_vec3 point,
 				t_vec3 ray_dir);
 t_vec3		get_cone_normal(t_cone *cone, t_vec3 point, t_vec3 ray_dir);
 t_vec3		get_box_normal(t_box *box, t_vec3 point, t_vec3 ray_dir);
+t_vec3		get_triangle_normal(t_triangle *triangle, t_vec3 point,
+				t_vec3 ray_dir);
+t_vec3 	get_disc_normal(t_disc *disc, t_vec3 point, t_vec3 ray_dir);
+t_vec3		get_quad_normal(t_quad *quad, t_vec3 point, t_vec3 ray_dir);
 
 #endif
