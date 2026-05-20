@@ -1,0 +1,34 @@
+# Intersections showcase: tries to use most supported primitives
+# Identifiers: sp pl cy cn bx tr di qd
+
+A 0.20 255,255,255
+
+# Camera: position, direction, FOV
+C 0,2,12 0,-0.15,-1 70
+
+# Lights: position, brightness, color
+L 6,10,10 0.80 255,255,255
+L -8,6,6 0.40 255,220,200
+
+# Environment
+pl 0,-3,0 0,1,0 50,50,50
+pl 0,0,-25 0,0,1 25,25,35
+
+# Classic primitives
+sp -4,-1,-6 3.0 220,30,30
+cy 4,-1,-7 0,1,0 2.5 4.0 30,180,255
+
+# Cone: apex, axis, diameter, height
+cn 0,1,-8 0,-1,0 4.0 4.0 255,140,40
+
+# Newer primitives
+bx 0,-2,-5 3,2,3 180,180,255
+
+# Disc (vertical)
+di -2,1,-12 0,0,1 4.0 255,255,0
+
+# Quad (vertical panel)
+qd 2,2,-12 6,2,-12 6,-2,-12 2,-2,-12 0,255,0
+
+# Triangle (vertical)
+tr -8,2,-12 -6,-2,-12 -10,-2,-12 255,0,255
